@@ -25,7 +25,7 @@ const SideDrawer = ({
       </div>
       {Object.keys(filters).map((key) => (
         <div key={key} className="filter-group">
-          <label>{key}</label>
+          <label>{key.charAt(0).toUpperCase()+key.slice(1)}</label>
           <input
             type="text"
             value={filters[key]}

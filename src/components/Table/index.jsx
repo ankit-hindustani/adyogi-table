@@ -130,7 +130,7 @@ const Table = ({ data }) => {
             {Object.keys(data[0]).map((key) =>
               visibleColumns.includes(key) ? (
                 <th key={key} onClick={() => handleSort(key)}>
-                  {key}
+                  {key.toUpperCase()}
                   {sortConfig.key === key ? (
                     sortConfig.direction === "ascending" ? (
                       " ↑"

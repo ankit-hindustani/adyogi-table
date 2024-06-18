@@ -50,7 +50,9 @@ const Popover = ({
             checked={visibleColumns.includes(column)}
             onChange={() => onToggleColumn(column)}
           />
-          <label htmlFor={column}>{column}</label>
+          <label htmlFor={column}>
+            {column.charAt(0).toUpperCase() + column.slice(1)}
+          </label>
         </div>
       ))}
     </div>
