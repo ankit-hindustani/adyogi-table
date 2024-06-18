@@ -7,6 +7,7 @@ const Popover = ({
   visibleColumns,
   onToggleColumn,
   onClose,
+  position,
 }) => {
   const popoverRef = useRef();
   const handleClickOutside = (event) => {
@@ -15,6 +16,13 @@ const Popover = ({
       console.log("closed called");
       onClose();
     }
+  };
+
+  const popoverStyle = {
+    position: "absolute",
+    top: position.top,
+    left: position.left,
+    transform: "translateX(-50%)",
   };
 
   useEffect(() => {
@@ -32,7 +40,7 @@ const Popover = ({
   if (!show) return null;
 
   return (
-    <div ref={popoverRef} className="popover">
+    <div ref={popoverRef} className="popover" style={popoverStyle}>
       <h3>Select Columns</h3>
       {columns.map((column) => (
         <div key={column}>

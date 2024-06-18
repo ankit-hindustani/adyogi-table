@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./Table.css";
 import { exportToCSV } from "../../utils";
 import SideDrawer from "../SideDrawer";
@@ -8,6 +8,8 @@ import ExportIcon from "../../assets/export_icon.svg";
 import Popover from "../Popover";
 
 const Table = ({ data }) => {
+  const columnButtonRef = useRef();
+  const [popoverPosition, setPopoverPosition] = useState({ top: 0, left: 0 });
   const [tableData, setTableData] = useState(data);
   const [sortConfig, setSortConfig] = useState({ key: "", direction: "" });
   const [filters, setFilters] = useState({
@@ -83,6 +85,16 @@ const Table = ({ data }) => {
     );
   };
 
+  const handleColumnButtonClick = () => {
+    const rect = columnButtonRef.current.getBoundingClientRect();
+    console.log("rect:", rect);
+    setPopoverPosition({
+      top: rect.bottom + window.scrollY,
+      left: rect.left + rect.width / 2 + window.scrollX,
+    });
+    setShowPopover((prev) => !prev);
+  };
+
   return (
     <div>
       <h2>Enhanced Table</h2>
@@ -99,7 +111,11 @@ const Table = ({ data }) => {
           <img height={20} src={FilterIcon} alt="icon" />
           Filters
         </button>
-        <button onClick={() => setShowPopover(true)} className="filter-button">
+        <button
+          ref={columnButtonRef}
+          onClick={() => handleColumnButtonClick()}
+          className="filter-button"
+        >
           <img height={20} src={ColumnIcon} alt="icon" />
           Columns
         </button>
@@ -157,6 +173,7 @@ const Table = ({ data }) => {
         visibleColumns={visibleColumns}
         onToggleColumn={toggleColumnVisibility}
         onClose={() => setShowPopover(false)}
+        position={popoverPosition}
       />
     </div>
   );

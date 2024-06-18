@@ -30,6 +30,7 @@ const SideDrawer = ({
             type="text"
             value={filters[key]}
             onChange={(e) => onFilterChange(key, e.target.value)}
+            placeholder={`Enter ${key}`}
           />
         </div>
       ))}
